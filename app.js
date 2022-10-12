@@ -19,8 +19,6 @@ function sonido(){
 	let audio= new Audio('disparo.mp3');
 	audio.play();
 	game.audio.volume.gain.value=3;
-
-
 }
 //Game
 function game() {
@@ -385,7 +383,7 @@ function game() {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "left";
-                ctx.fillText('Planet Invaders 12 BTP A ', 1000, 30)
+                ctx.fillText('Planet Invaders 12 BTP A ', 970, 30)
 
                 ctx.font = "60px Verdana";
                 ctx.fontstyle="bold";
