@@ -383,7 +383,7 @@ function game() {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "left";
-                ctx.fillText('Planet Invaders 12 BTP A ', 970, 30)
+                ctx.fillText('Planet Invaders 12 BTP A ', 850, 30)
 
                 ctx.font = "60px Verdana";
                 ctx.fontstyle="bold";
