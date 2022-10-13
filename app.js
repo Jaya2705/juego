@@ -14,12 +14,6 @@ window.onload = function() {
     spriteExplosion.src = 'https://marclopezavila.github.io/planet-defense-game/img/explosion.png';
 };
 
-function sonido(){
-	game.audio.volume.gain.value=0;
-	let audio= new Audio('disparo.mp3');
-	audio.play();
-	game.audio.volume.gain.value=3;
-}
 //Game
 function game() {
 
@@ -223,32 +217,38 @@ function game() {
         }
     }
 
-    function newAsteroid() {
 
-        var type = random(1,4),
+
+
+
+    //MI PARTE
+
+    function newAsteroid() {  //funcion  asteroides
+
+        var type = random(1,4),    //dependiendo del valor el asteroide vendra de una direccion: norte,sur,este,oeste
             coordsX,
             coordsY;
 
         switch(type){
             case 1:
-                coordsX = random(0, cW);
+                coordsX = random(0, cW);  //norte
                 coordsY = 0 - 150;
                 break;
             case 2:
                 coordsX = cW + 150;
-                coordsY = random(0, cH);
+                coordsY = random(0, cH);    //sur
                 break;
             case 3:
-                coordsX = random(0, cW);
+                coordsX = random(0, cW);    //este
                 coordsY = cH + 150;
                 break;
             case 4:
-                coordsX = 0 - 150;
+                coordsX = 0 - 150;          //oeste
                 coordsY = random(0, cH);
                 break;
         }
 
-        var asteroid = {
+        var asteroid = {  //definicion de la variable de los asteroides
             x: 278,
             y: 0,
             state: 0,
@@ -260,23 +260,23 @@ function game() {
             moveY: 0,
             coordsX: coordsX,
             coordsY: coordsY,
-            size: random(1, 3),
+            size: random(1, 3),     //aqui elige su tamaño al azar
             deg: Math.atan2(coordsX  - (cW/2), -(coordsY - (cH/2))),
             destroyed: false
         };
         asteroids.push(asteroid);
     }
 
-    function _asteroids() {
+    function _asteroids() {     //funcion para lanzar los asteroides
         var distance;
 
-        for(var i = 0; i < asteroids.length; i++) {
+        for(var i = 0; i < asteroids.length; i++) {   //arreglo para los asteroides entre mayor sea la variable del ciclo los asteroides vendran mas rapido 
             if (!asteroids[i].destroyed) {
                 ctx.save();
-                ctx.translate(asteroids[i].coordsX, asteroids[i].coordsY);
-                ctx.rotate(asteroids[i].deg);
+                ctx.translate(asteroids[i].coordsX, asteroids[i].coordsY); //animacion
+                ctx.rotate(asteroids[i].deg); //rotacion 
 
-                ctx.drawImage(
+                ctx.drawImage( //dimensiones que se les dan a los asteroides acorde a la variable
                     sprite,
                     asteroids[i].x,
                     asteroids[i].y,
@@ -290,14 +290,14 @@ function game() {
 
                 ctx.restore();
 
-                //Real Coords
+                //Trayectoria de los asteroides
                 asteroids[i].realX = (0) - (asteroids[i].moveY + ((asteroids[i].height / asteroids[i].size)/2)) * Math.sin(asteroids[i].deg);
                 asteroids[i].realY = (0) + (asteroids[i].moveY + ((asteroids[i].height / asteroids[i].size)/2)) * Math.cos(asteroids[i].deg);
 
                 asteroids[i].realX += asteroids[i].coordsX;
                 asteroids[i].realY += asteroids[i].coordsY;
 
-                //Game over
+                //Pierde
                 distance = Math.sqrt(Math.pow(asteroids[i].realX -  cW/2, 2) + Math.pow(asteroids[i].realY - cH/2, 2));
                 if (distance < (((asteroids[i].width/asteroids[i].size) / 2) - 4) + 100) {
                     gameOver = true;
@@ -314,11 +314,13 @@ function game() {
         }
     }
 
-    function explosion(asteroid) {
+    function explosion(asteroid) { //animacion de la explosion de los asteroides
         ctx.save();
         ctx.translate(asteroid.realX, asteroid.realY);
         ctx.rotate(asteroid.deg);
 
+
+        //ciclo de las animaciones de explosion
         var spriteY,
             spriteX = 256;
         if(asteroid.state == 0) {
@@ -358,6 +360,7 @@ function game() {
         ctx.restore();
     }
 
+    //Mientras el juego esta en uso y aun no pierde
     function start() {
         if(!gameOver) {
             //Clear
@@ -382,9 +385,10 @@ function game() {
                 ctx.font = "30px Verdana";
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
-                ctx.textAlign = "left";
-                ctx.fillText('Planet Invaders 12 BTP A ', 850, 30)
-
+                ctx.textAlign = "right";
+                ctx.fillText('Planet Invaders 12 BTP A ', 0, 30)
+                
+                //ctx=canvas rendering context
                 ctx.font = "60px Verdana";
                 ctx.fontstyle="bold";
                 ctx.fillStyle = "white";
@@ -394,9 +398,23 @@ function game() {
                 ctx.strokeText(''+destroyed+'', cW/2,cH/2);
                 ctx.fillText(''+destroyed+'', cW/2,cH/2);
 
-            } else {
+            } else { //Cuando no este jugando 
                 ctx.drawImage(sprite, 428, 12, 70, 70, cW/2 - 35, cH/2 - 35, 70,70);
+
+                ctx.font = "50px Verdana";
+                ctx.fillStyle = "white";
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = "center";
+                ctx.fillText('Planet Invaders by 12 BTP A ', 750, 70)
+
+                ctx.font = "30px Verdana";
+                ctx.fillStyle = "#FCA216";
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = "center";
+                ctx.fillText('¡Destruye todos los asteroides que puedas!', 750, 130)
+
             }
+            //Pantalla de carga cuando pierde
         } else if(count < 1) {
             count = 1;
             ctx.fillStyle = 'rgba(0,0,0,0.75)';
