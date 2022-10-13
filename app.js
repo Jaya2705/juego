@@ -3,10 +3,10 @@
 //PLAY IN FULL PAGE VIEW!
 
 
-window.addEventListener("DOMContentLoaded", game);
+window.addEventListener("DOMContentLoaded", game); //se ejecuta hasta que la pagina este completamente cargada
 
 //General sprite load
-var sprite = new Image();
+var sprite = new Image(); 
 var spriteExplosion = new Image();
 sprite.src = 'https://marclopezavila.github.io/planet-defense-game/img/sprite.png';
 
@@ -17,10 +17,11 @@ window.onload = function() {
 //Game
 function game() {
 
-    //Canvas
+    //Canvas o lienzo
     var canvas = document.getElementById('canvas'),
-        ctx    = canvas.getContext('2d'),
-        cH     = ctx.canvas.height = window.innerHeight,
+        //ctx=canvas rendering context que nos permite modificar las propiedades de los elementos del canva
+        ctx    = canvas.getContext('2d'), //nos permite  dibujar en 2d
+        cH     = ctx.canvas.height = window.innerHeight, 
         cW     = ctx.canvas.width  = window.innerWidth ;
 
     //Game
@@ -35,6 +36,7 @@ function game() {
         _planet    = {deg: 0};
 
     //Player
+    //caracteristicas de la nave
     var player = {
         posX   : -35,
         posY   : -(100+82),
@@ -43,11 +45,12 @@ function game() {
         deg    : 0
     };
 
-    canvas.addEventListener('click', action);
+    canvas.addEventListener('click', action); 
     canvas.addEventListener('mousemove', action);
     window.addEventListener("resize", update);
 
     function update() {
+        //modifca las dimensiones del lienzo acorde al tamano de la ventana
         cH = ctx.canvas.height = window.innerHeight;
         cW = ctx.canvas.width  = window.innerWidth ;
     }
@@ -56,10 +59,10 @@ function game() {
         player.deg = Math.atan2(e.offsetX - (cW/2), -(e.offsetY - (cH/2)));
     }
 
-    function action(e) {
-        e.preventDefault();
+    function action(e) { 
+        e.preventDefault(); //Cambiar el estado de una caja de selección es la función por defecto de la acción de hacer clic sobre la caja.
         if(playing) {
-            var bullet = {
+            var bullet = { //disparos laser
                 x: -8,
                 y: -179,
                 sizeX : 2,
@@ -388,7 +391,7 @@ function game() {
                 ctx.textAlign = "right";
                 ctx.fillText('Planet Invaders 12 BTP A ', 0, 30)
                 
-                //ctx=canvas rendering context
+                //ctx=canvas rendering context que nos permite modificar las propiedades de los elementos del canva
                 ctx.font = "60px Verdana";
                 ctx.fontstyle="bold";
                 ctx.fillStyle = "white";
@@ -405,13 +408,13 @@ function game() {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "center";
-                ctx.fillText('Planet Invaders by 12 BTP A ', 750, 70)
+                ctx.fillText('Planet Invaders by 12 BTP A ', 600, 40)
 
                 ctx.font = "30px Verdana";
                 ctx.fillStyle = "#FCA216";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "center";
-                ctx.fillText('¡Destruye todos los asteroides que puedas!', 750, 130)
+                ctx.fillText('¡Destruye todos los asteroides que puedas!', 600, 100)
 
             }
             //Pantalla de carga cuando pierde
@@ -420,8 +423,6 @@ function game() {
             ctx.fillStyle = 'rgba(0,0,0,0.75)';
             ctx.rect(0,0, cW,cH);
             ctx.fill();
-          
-         
 
             ctx.font = "60px Verdana";
             ctx.fillStyle = "white";
@@ -446,17 +447,39 @@ function game() {
         }
     }
 
+    //cuando el usuario quiere empezar de nuevo
     function init() {
-        window.requestAnimationFrame(init);
-        start();
+        window.requestAnimationFrame(init);    //Le dice al navegador que desea realizar una animación y solicita que el navegador llame a una función específica para actualizar una animación antes del próximo repintado.
+        start(); //llama a la funcion start
     }
 
     init();
 
-    //Utils
+    //Reinicia las variables
     function random(from, to) {
         return Math.floor(Math.random() * (to - from + 1)) + from;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     if(~window.location.href.indexOf('full')) {
         var full = document.getElementsByTagName('a');
