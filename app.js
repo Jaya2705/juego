@@ -408,13 +408,13 @@ function game() {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "center";
-                ctx.fillText('Planet Invaders by 12 BTP A ', 600, 40)
+                ctx.fillText('Planet Invaders by 12 BTP A ', 650, 40)
 
                 ctx.font = "30px Verdana";
                 ctx.fillStyle = "#FCA216";
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = "center";
-                ctx.fillText('¡Destruye todos los asteroides que puedas!', 600, 100)
+                ctx.fillText('¡Destruye todos los asteroides que puedas!', 650, 100)
 
             }
             //Pantalla de carga cuando pierde
